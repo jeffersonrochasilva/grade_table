@@ -11,20 +11,17 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   data() {
     return {};
   },
-  computed: {
-    total() {
-      return this.produtos
-        .map((p) => p.quantidade * p.preco)
-        .reduce((atual, total) => total + atual, 0);
-    },
-    produtos() {
-      return this.$store.state.produtos;
-    },
-  },
+  computed: mapGetters({ total: "valorTotal" }),
+  // computed: {
+  //   total() {
+  //     return this.$store.getters.valorTotal;
+  //   },
+  // },
 };
 </script>
 

@@ -5,29 +5,20 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    produtos: [
-      {
-        id: 1,
-        nome: "Produto 1",
-        quantidade: 25,
-        preco: 39.9,
-      },
-      {
-        id: 2,
-        nome: "Produto 2",
-        quantidade: 15,
-        preco: 59.9,
-      },
-      {
-        id: 3,
-        nome: "Produto 3",
-        quantidade: 15,
-        preco: 59.9,
-      },
-    ],
+    produtos: [],
   },
-  getters: {},
-  mutations: {},
+  getters: {
+    valorTotal(state) {
+      return state.produtos
+        .map((p) => p.quantidade * p.preco)
+        .reduce((total, atual) => total + atual, 0);
+    },
+  },
+  mutations: {
+    adicionarProduto(state, payload) {
+      return state.produtos.push(payload);
+    },
+  },
   actions: {},
   modules: {},
 });

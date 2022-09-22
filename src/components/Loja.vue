@@ -12,7 +12,7 @@
         <p>item de R$</p>
         <input type="number" v-model="preco" />
       </div>
-      <v-btn>Agora !</v-btn>
+      <v-btn @click="adincionar()">Agora !</v-btn>
     </div>
   </div>
 </template>
@@ -20,9 +20,23 @@
 export default {
   data() {
     return {
-      preco: 9.9,
-      quantidade: 4,
+      preco: 9.99,
+      quantidade: 1,
+      sequencia: 1,
     };
+  },
+  methods: {
+    adincionar() {
+      const produto = {
+        id: this.sequencia,
+        nome: `produto ${this.sequencia}`,
+        quantidade: this.quantidade,
+        preco: this.preco,
+      };
+      this.sequencia++;
+      // this.$store.state.produtos.push(produto);
+      this.$store.commit("adicionarProduto", produto);
+    },
   },
 };
 </script>
