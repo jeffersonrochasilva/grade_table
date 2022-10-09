@@ -21,7 +21,7 @@
       </div>
       <div class="carrinho__content__total">
         <span
-          >total: <strong>{{ total }}</strong></span
+          >total: <strong>{{ somaTotal }}</strong></span
         >
       </div>
     </div>
@@ -29,12 +29,15 @@
 </template>
 
 <script>
-// import { mapGetters } from 'vuex';
+import { mapGetters } from "vuex";
 export default {
   data() {
     return {};
   },
   computed: {
+    ...mapGetters({
+      somaTotal: "valorTotal",
+    }),
     total() {
       return this.$store.getters.valorTotal;
     },
