@@ -8,6 +8,7 @@
       <Loja />
       <Resumo />
     </div>
+    <v-btn @click="$router.push('/about')">ir para o pagina about</v-btn>
   </v-container>
 </template>
 

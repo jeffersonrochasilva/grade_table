@@ -30,9 +30,16 @@
 
 <script>
 import { mapGetters } from "vuex";
+import axios from "axios";
+import url from "../utils/enum";
 export default {
   data() {
     return {};
+  },
+  async mounted() {
+    console.log(URL, "URL");
+    console.log(url, "url");
+    await this.getApi();
   },
   computed: {
     ...mapGetters({
@@ -42,7 +49,19 @@ export default {
       return this.$store.getters.valorTotal;
     },
     produtos() {
-      return this.$store.state.produtos;
+      return this.$store.state.carrinho.produtos;
+    },
+  },
+  methods: {
+    async getApi() {
+      await axios
+        .get(url)
+        .then((res) => {
+          console.log(res.data, "data da api");
+        })
+        .catch((error) => {
+          console.log(error, "ERROR");
+        });
     },
   },
 };
