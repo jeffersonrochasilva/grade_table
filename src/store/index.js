@@ -1,14 +1,10 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
-import carrinho from "./modules/carrinho/carrinho.js";
-import parametros from "./modules/parametros";
+import modules from "./modules";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  modules: {
-    carrinho,
-    parametros,
-  },
+  modules,
 });

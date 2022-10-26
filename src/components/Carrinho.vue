@@ -2,6 +2,8 @@
   <div class="carrinho">
     <div class="carrinho__header">
       <h1>Carrinho</h1>
+      nome:
+      <h3>{{ name }}</h3>
     </div>
     <div class="carrinho__content">
       <div class="carrinho__content__title">
@@ -31,7 +33,7 @@
 <script>
 import { mapGetters } from "vuex";
 import axios from "axios";
-import url from "../utils/enum";
+import url from "../utils/kkk";
 export default {
   data() {
     return {};
@@ -40,10 +42,12 @@ export default {
     console.log(URL, "URL");
     console.log(url, "url");
     await this.getApi();
+    console.log(name, "name");
   },
   computed: {
     ...mapGetters({
       somaTotal: "valorTotal",
+      name: "carrinho/name",
     }),
     total() {
       return this.$store.getters.valorTotal;
