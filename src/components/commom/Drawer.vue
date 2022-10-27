@@ -52,7 +52,8 @@ export default {
 .drawer {
   width: 300px;
   height: 100%;
-  border-right: 0.5px solid #dcdcdc;
+  border-right: 0.5px solid #acaaaa;
+  background: #b3b9cf;
   &__perfil {
     width: 100%;
     height: 100px;

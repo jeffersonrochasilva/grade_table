@@ -28,7 +28,6 @@ export default {
   display: flex;
   &__container {
     width: calc(100% - 300px);
-    border: 1px solid red;
   }
 }
 </style>

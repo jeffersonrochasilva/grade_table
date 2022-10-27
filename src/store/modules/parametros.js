@@ -2,6 +2,7 @@ export default {
   state: {
     quantidade: 2,
     preco: 19.99,
+    nome: "jefferson",
   },
   mutations: {
     setQuantidade(state, payload) {

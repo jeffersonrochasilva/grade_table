@@ -7,5 +7,6 @@
   width: 100%;
   height: 101px;
   border-bottom: 0.5px solid #dcdcdc;
+  background: #b3b9cf;
 }
 </style>
