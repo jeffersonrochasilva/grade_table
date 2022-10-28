@@ -14,10 +14,22 @@
         :class="`drawer__navigation--${step === i ? 'altern' : 'box'}`"
         v-for="(item, i) in items"
         :key="i"
-        @click="setStep((step = i))"
+        @click="setStep(i)"
       >
-        <v-icon>{{ item.icon }}</v-icon>
-        <span>{{ item.title }}</span>
+        <div class="drawer__navigation__description">
+          <v-icon>{{ item.icon }}</v-icon>
+          <span>{{ item.title }}</span>
+        </div>
+        <div
+          v-if="step === i"
+          v-for="(item, index) in item.category"
+          :key="index"
+          @click="$router.push({ name: item.routerName })"
+          class="drawer__navigation__content"
+        >
+          <v-icon>{{ item.otherIcon }}</v-icon>
+          <span>{{ item.name }}</span>
+        </div>
       </div>
     </div>
   </div>
@@ -27,12 +39,90 @@
 export default {
   data() {
     return {
-      cpf: "00000000000",
+      cpf: "08539020135",
       step: false,
       items: [
-        { title: "Dashboard", icon: "mdi-view-dashboard" },
-        { title: "Photos", icon: "mdi-image" },
-        { title: "About", icon: "mdi-help-box" },
+        {
+          title: "Dashboard",
+          icon: "mdi-view-dashboard",
+          category: [
+            {
+              name: "Home",
+              otherIcon: "mdi-home",
+              routerName: "cardsdirection",
+            },
+            {
+              name: "Tabela",
+              otherIcon: "mdi-table-of-contents",
+              routerName: "table",
+            },
+            {
+              name: "Graficos",
+              otherIcon: "mdi-chart-line-stacked",
+              routerName: "",
+            },
+            {
+              name: "Graficos",
+              otherIcon: "mdi-chart-line-stacked",
+              routerName: "",
+            },
+          ],
+          otherIcon: "mdi-chart-line-stacked",
+        },
+        {
+          title: "Photos",
+          icon: "mdi-image",
+          category: [
+            {
+              name: "Graficos",
+              otherIcon: "mdi-chart-line-stacked",
+              routerName: "",
+            },
+            {
+              name: "Graficos",
+              otherIcon: "mdi-chart-line-stacked",
+              routerName: "",
+            },
+            {
+              name: "Graficos",
+              otherIcon: "mdi-chart-line-stacked",
+              routerName: "",
+            },
+            {
+              name: "Graficos",
+              otherIcon: "mdi-chart-line-stacked",
+              routerName: "",
+            },
+          ],
+          otherIcon: "mdi-chart-line-stacked",
+        },
+        {
+          title: "About",
+          icon: "mdi-help-box",
+          category: [
+            {
+              name: "Graficos",
+              otherIcon: "mdi-chart-line-stacked",
+              routerName: "",
+            },
+            {
+              name: "Graficos",
+              otherIcon: "mdi-chart-line-stacked",
+              routerName: "",
+            },
+            {
+              name: "Graficos",
+              otherIcon: "mdi-chart-line-stacked",
+              routerName: "",
+            },
+            {
+              name: "Graficos",
+              otherIcon: "mdi-chart-line-stacked",
+              routerName: "",
+            },
+          ],
+          otherIcon: "mdi-chart-line-stacked",
+        },
       ],
     };
   },
@@ -44,6 +134,11 @@ export default {
       arr.splice(11, 0, "-");
       return arr.join("");
     },
+    setStep(i) {
+      setTimeout(() => {
+        this.step = i;
+      }, 110);
+    },
   },
 };
 </script>
@@ -53,7 +148,8 @@ export default {
   width: 300px;
   height: 100%;
   border-right: 0.5px solid #acaaaa;
-  background: #b3b9cf;
+  background: #fff;
+
   &__perfil {
     width: 100%;
     height: 100px;
@@ -66,12 +162,17 @@ export default {
       flex-direction: column;
       justify-content: center;
       span {
-        font-size: 20px;
+        color: #454d6b;
         font-family: sans-serif;
+        font-size: 19px;
+        font-weight: bold;
       }
       p {
         font-size: 15px;
         font-family: sans-serif;
+        font-weight: bold;
+        color: #454d6b;
+        margin-top: 5px;
       }
     }
     img {
@@ -84,10 +185,24 @@ export default {
     margin-top: 10px;
     padding-left: 20px;
     cursor: pointer;
+    &__description {
+      width: 100%;
+      height: 50px;
+      padding-bottom: 30px;
+
+      display: flex;
+      align-items: center;
+    }
+    &__content {
+      height: 30px;
+      padding-left: 20px;
+      display: flex;
+      align-items: center;
+    }
     &--box {
       height: 50px;
       width: 90%;
-      margin-top: 10px;
+      padding-top: 20px;
       border-radius: 4px;
       padding-left: 10px;
       display: flex;
@@ -100,21 +215,36 @@ export default {
       }
     }
     &--altern {
-      background: #00fa9a;
-      height: 50px;
+      // background: #d1d7f0;
+      background: #fff;
       width: 90%;
-      margin-top: 10px;
+      padding-top: 20px;
       padding-left: 10px;
+      padding-bottom: 20px;
       border-radius: 4px;
       display: flex;
       align-items: center;
-
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      animation-name: colapsy;
+      animation-duration: 0.1s;
+      position: relative;
+      animation-timing-function: ease;
       span {
         font-size: 15px;
         font-family: sans-serif;
         margin-left: 20px;
       }
     }
+  }
+}
+@keyframes colapsy {
+  0% {
+    height: 50px;
+  }
+  100% {
+    height: 110px;
   }
 }
 </style>

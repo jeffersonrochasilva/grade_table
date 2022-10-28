@@ -10,7 +10,7 @@
 
 <script>
 import Loading from "@/components/commom/Loading.vue";
-import { mapGetters, mapActions, mapMutations } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 export default {
   name: "App",
   data: () => ({

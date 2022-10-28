@@ -28,6 +28,11 @@ export default {
   display: flex;
   &__container {
     width: calc(100% - 300px);
+    &__content {
+      padding: 60px 80px;
+      background: #eaeaea;
+      height: calc(100% - 101px);
+    }
   }
 }
 </style>
