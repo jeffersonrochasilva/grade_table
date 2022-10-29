@@ -2,7 +2,7 @@ import Login from "@/pages/public/Login.vue";
 
 const routes = [
   {
-    path: "/login",
+    path: "/",
     component: Login,
     name: "login",
   },

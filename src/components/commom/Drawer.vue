@@ -70,27 +70,27 @@ export default {
           otherIcon: "mdi-chart-line-stacked",
         },
         {
-          title: "Photos",
-          icon: "mdi-image",
+          title: "Cadastros",
+          icon: "mdi-format-list-bulleted",
           category: [
             {
-              name: "Graficos",
-              otherIcon: "mdi-chart-line-stacked",
+              name: "Alunos",
+              otherIcon: "mdi-account",
+              routerName: "students",
+            },
+            {
+              name: "faxineiros",
+              otherIcon: "mdi-spray-bottle",
               routerName: "",
             },
             {
-              name: "Graficos",
-              otherIcon: "mdi-chart-line-stacked",
+              name: "Merendeira",
+              otherIcon: "mdi-stove",
               routerName: "",
             },
             {
-              name: "Graficos",
-              otherIcon: "mdi-chart-line-stacked",
-              routerName: "",
-            },
-            {
-              name: "Graficos",
-              otherIcon: "mdi-chart-line-stacked",
+              name: "Poteiro",
+              otherIcon: "mdi-account-key",
               routerName: "",
             },
           ],
