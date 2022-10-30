@@ -12,7 +12,6 @@ export default {
     registerStudentss({ commit }, psyload) {
       setTimeout(() => {
         commit("registerStudents", psyload);
-        console.log(students, "students");
       }, 2000);
     },
   },

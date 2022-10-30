@@ -5,14 +5,6 @@
       <AppBar />
       <div class="home__container__content">
         <router-view />
-        <v-navigation-drawer
-          temporary
-          v-model="navigationState"
-          location="right"
-          width="507"
-        >
-          <slot />
-        </v-navigation-drawer>
       </div>
     </div>
   </div>
@@ -25,7 +17,6 @@ export default {
   components: {
     Drawer,
     AppBar,
-    navigationState: false,
   },
 };
 </script>

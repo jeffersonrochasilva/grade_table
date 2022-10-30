@@ -9,7 +9,7 @@
           v-model="name"
           placeholder="Nome"
         />
-        <p v-if="campName">Preencha o campo</p>
+        <p v-if="campName">O maximo de caracteries são 20</p>
       </div>
       <div class="students__form__campAlert">
         <input
@@ -18,7 +18,7 @@
           v-model="lastName"
           placeholder="sobrenome"
         />
-        <p v-if="campLastName">Preencha o campo</p>
+        <p v-if="campLastName">O maximo de caracteries são 32</p>
       </div>
       <div class="students__form__campAlert">
         <input
@@ -27,7 +27,7 @@
           v-model="cpf"
           placeholder="cpf"
         />
-        <p v-if="campCpf">Preencha o campo</p>
+        <p v-if="campCpf">O maximo de caracteries são 11</p>
       </div>
       <div class="students__form__campAlert">
         <input
@@ -36,13 +36,13 @@
           v-model="age"
           placeholder="Idade"
         />
-        <p v-if="campLastName">Preencha o campo</p>
+        <p v-if="campAge">Valor invalido</p>
       </div>
     </div>
     <div class="students__button">
       <v-btn
-        @click="regeisterStudents()"
         :disabled="disabledButton(name, lastName, cpf, age)"
+        @click="regeisterStudents()"
         class="students__button__btn"
         >Cadastrar</v-btn
       >
@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import { mapActions, mapMutations } from "vuex";
+import { mapActions } from "vuex";
 export default {
   data: () => ({
     name: "",
@@ -61,11 +61,27 @@ export default {
     campName: false,
     campLastName: false,
     campCpf: false,
+    campAge: false,
   }),
-
+  watch: {
+    name() {
+      if (this.name.length > 20) {
+        this.campName = true;
+        return;
+      }
+    },
+    lastName() {
+      if (this.lastName.length > 20) {
+        this.campLastName = true;
+        return;
+      }
+    },
+  },
   methods: {
-    ...mapActions({ registerStudentss: "registerStudentss" }),
-    ...mapMutations({ setStepLoading: "setStepLoading" }),
+    ...mapActions({
+      registerStudentss: "registerStudentss",
+      setStepss: "setStepss",
+    }),
     disabledButton(name, lastName, cpf, age) {
       if (name.length > 0 && lastName.length > 0 && cpf > 0 && age > 0) {
         return false;
@@ -74,16 +90,19 @@ export default {
       }
     },
     async regeisterStudents() {
-      this.$store.commit("setStepLoading", true);
-      this.setStepLoading(true);
-      const students = {
+      await this.setStepss(true);
+
+      await this.registerStudentss({
         name: this.name,
         lastName: this.lastName,
         age: this.age,
         cpf: this.cpf,
-      };
-      await this.registerStudentss(students);
-      this.setStepLoading(false);
+      });
+      setTimeout(async () => {
+        await this.setStepss(false);
+      }, 3000);
+
+      (this.name = ""), (this.lastName = ""), (this.cpf = 0), (this.age = 0);
     },
   },
 };

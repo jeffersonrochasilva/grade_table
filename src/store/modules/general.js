@@ -29,6 +29,9 @@ export default {
         router.push("/home");
       }, 3000);
     },
+    setStepss({ commit }, payload) {
+      commit("setStepLoading", payload);
+    },
     setSnackbar({ commit }, payload) {
       commit("setSnackbarValue", payload);
       setTimeout(() => {

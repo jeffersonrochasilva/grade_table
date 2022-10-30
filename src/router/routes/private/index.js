@@ -11,7 +11,7 @@ const routes = [
     children: [
       { path: "", name: "cardsdirection", component: CardsDirection },
       { path: "/home/table", name: "table", component: Table },
-      { path: "/students", name: "students", component: Students },
+      { path: "/home/students", name: "students", component: Students },
     ],
   },
 ];
