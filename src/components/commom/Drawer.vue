@@ -81,7 +81,7 @@ export default {
             {
               name: "faxineiros",
               otherIcon: "mdi-spray-bottle",
-              routerName: "",
+              routerName: "janitor",
             },
             {
               name: "Merendeira",
@@ -91,7 +91,7 @@ export default {
             {
               name: "Poteiro",
               otherIcon: "mdi-account-key",
-              routerName: "",
+              routerName: "port",
             },
           ],
           otherIcon: "mdi-chart-line-stacked",
