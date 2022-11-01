@@ -97,13 +97,13 @@ export default {
           otherIcon: "mdi-chart-line-stacked",
         },
         {
-          title: "About",
+          title: "Controle",
           icon: "mdi-help-box",
           category: [
             {
-              name: "Graficos",
-              otherIcon: "mdi-chart-line-stacked",
-              routerName: "",
+              name: "Dispensa",
+              otherIcon: "mdi-food-apple",
+              routerName: "register-bag",
             },
             {
               name: "Graficos",

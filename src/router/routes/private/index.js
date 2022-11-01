@@ -4,6 +4,7 @@ import CardsDirection from "@/pages/private/CardsDirection.vue";
 import Students from "@/pages/private/Registers/Students.vue";
 import Port from "@/pages/private/Registers/Port.vue";
 import Janitor from "@/pages/private/Registers/Janitor.vue";
+import RegisterBag from "@/pages/private/Registers/bags/RegisterBag.vue";
 
 const routes = [
   {
@@ -16,6 +17,11 @@ const routes = [
       { path: "/home/students", name: "students", component: Students },
       { path: "/home/port", name: "port", component: Port },
       { path: "/home.janitor", name: "janitor", component: Janitor },
+      {
+        path: "/home/register-bag",
+        name: "register-bag",
+        component: RegisterBag,
+      },
     ],
   },
 ];
