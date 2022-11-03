@@ -5,6 +5,7 @@ import Students from "@/pages/private/Registers/Students.vue";
 import Port from "@/pages/private/Registers/Port.vue";
 import Janitor from "@/pages/private/Registers/Janitor.vue";
 import RegisterBag from "@/pages/private/Registers/bags/RegisterBag.vue";
+import Dispensa from "@/pages/private/Dispensa.vue";
 
 const routes = [
   {
@@ -22,6 +23,7 @@ const routes = [
         name: "register-bag",
         component: RegisterBag,
       },
+      { path: "/home/dispensa", name: "dispensa", component: Dispensa },
     ],
   },
 ];

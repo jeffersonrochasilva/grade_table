@@ -103,7 +103,7 @@ export default {
             {
               name: "Dispensa",
               otherIcon: "mdi-food-apple",
-              routerName: "register-bag",
+              routerName: "dispensa",
             },
             {
               name: "Graficos",
