@@ -1,84 +1,43 @@
 <template>
   <div>
     <v-card class="table">
-      <h1 class="table__title">Tabela de demostração</h1>
+      <h1 class="table__title">Demonstração de dispensa.</h1>
       <div class="table__container">
         <div class="table__container__header">
-          <ul v-for="(item, i) in header" :key="i">
-            <li class="table__container__header__description">{{ item }}</li>
-          </ul>
+          <div class="table__container__header__month">
+            <ul
+              v-for="(item, i) in months"
+              :key="i"
+              class="table__container__header__month__listMonth"
+            >
+              <li class="table__container__header__month__listMonth__text">
+                {{ item }}
+              </li>
+            </ul>
+          </div>
+          <div class="table__container__header__list">
+            <div class="table__container__header__list__listHeader">
+              <ul v-for="(item, i) in descriptionData" :key="i">
+                <li
+                  class="table__container__header__list__listHeader__description"
+                >
+                  {{ item.name }}
+                </li>
+              </ul>
+            </div>
+            <div
+              v-for="(item, i) in months"
+              :key="i"
+              class="table__container__header__list__listValue"
+            >
+              <ul v-for="(item, i) in descriptionData" :key="i">
+                <li class="table__container__header__list__listValue__text">
+                  {{ item.value }}
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
-
-        <ul v-for="(item, i) in params" :key="i" class="table__container__list">
-          <li class="table__container__list--content">
-            <v-checkbox @click="getCheckbox(item)" color="#FF0000" />
-          </li>
-          <li class="table__container__list--content">
-            {{ item.number }}
-          </li>
-          <li class="table__container__list--content">
-            {{ item.name }}
-          </li>
-          <li class="table__container__list--content">
-            {{ item.lastName }}
-          </li>
-          <li
-            :class="`table__container__list--${
-              item.matematica > 5 ? 'content' : 'contentFail'
-            }`"
-          >
-            {{ item.matematica }}
-          </li>
-          <li
-            :class="`table__container__list--${
-              item.portugues > 5 ? 'content' : 'contentFail'
-            }`"
-          >
-            {{ item.portugues }}
-          </li>
-          <li
-            :class="`table__container__list--${
-              item.ciencia > 5 ? 'content' : 'contentFail'
-            }`"
-          >
-            {{ item.ciencia }}
-          </li>
-          <li
-            :class="`table__container__list--${
-              item.geografia > 5 ? 'content' : 'contentFail'
-            }`"
-          >
-            {{ item.geografia }}
-          </li>
-          <li
-            :class="`table__container__list--${
-              item.historia > 5 ? 'content' : 'contentFail'
-            }`"
-          >
-            {{ item.historia }}
-          </li>
-          <li
-            :class="`table__container__list--${
-              item.fisica > 5 ? 'content' : 'contentFail'
-            }`"
-          >
-            {{ item.fisica }}
-          </li>
-          <li
-            :class="`table__container__list--${
-              item.filozofia > 5 ? 'content' : 'contentFail'
-            }`"
-          >
-            {{ item.filozofia }}
-          </li>
-          <li
-            :class="`table__container__list--${
-              item.ingles > 5 ? 'content' : 'contentFail'
-            }`"
-          >
-            {{ item.ingles }}
-          </li>
-        </ul>
       </div>
     </v-card>
   </div>
@@ -88,6 +47,33 @@
 export default {
   data: () => ({
     titlecolor: "red",
+    descriptionData: [
+      { name: "Arroz", value: "36" },
+      { name: "Feijão", value: "47" },
+      { name: "Carne", value: "150" },
+      { name: "Leite", value: "80" },
+      { name: "Farinha", value: "34" },
+      { name: "Macarrão", value: "59" },
+      { name: "Òleo", value: "45" },
+      { name: "Azeite", value: "15" },
+      { name: "Sal", value: "10" },
+      { name: "Gelatina", value: "300" },
+      { name: "Frango", value: "150" },
+    ],
+    months: [
+      "Janeiro",
+      "Fevereiro",
+      "Março",
+      "Abril",
+      "Maio",
+      "Junho",
+      "Julho",
+      "Agosto",
+      "Setembro",
+      "Outubro",
+      "Novembro",
+      "Dezembro",
+    ],
   }),
   computed: {
     header() {
@@ -120,32 +106,54 @@ export default {
       padding: 20px;
       display: flex;
       justify-content: space-between;
-      &__description {
-        width: 85px;
-        list-style-type: none;
-        font-family: sans-serif;
-        color: #454d6b;
-        font-weight: bold;
-        font-size: 15px;
+      &__month {
+        margin-top: 20px;
+        margin-right: 20px;
+        &__listMonth {
+          &__text {
+            height: 30px;
+            list-style: none;
+            font-family: sans-serif;
+            color: #454d6b;
+            font-weight: bold;
+            font-size: 15px;
+          }
+        }
       }
-    }
-    &__list {
-      display: flex;
-      justify-content: space-between;
-      padding: 0 20px;
-      align-items: center;
-      &--content {
-        min-width: 85px;
-        list-style-type: none;
-        font-family: sans-serif;
-        font-size: 15px;
-      }
-      &--contentFail {
-        min-width: 85px;
-        list-style-type: none;
-        font-family: sans-serif;
-        font-size: 15px;
-        color: #ff0000;
+      &__list {
+        width: 100%;
+
+        &__listHeader {
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          &__description {
+            width: 85px;
+            list-style-type: none;
+            font-family: sans-serif;
+            color: #454d6b;
+            font-weight: bold;
+            font-size: 15px;
+          }
+        }
+        &__listValue {
+          border-bottom: 1px solid #454d6b;
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          &__text {
+            width: 85px;
+            height: 28.5px;
+            list-style-type: none;
+            font-family: sans-serif;
+            color: #454d6b;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            font-size: 15px;
+          }
+        }
       }
     }
   }
