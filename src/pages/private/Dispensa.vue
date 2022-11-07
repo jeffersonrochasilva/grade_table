@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-card class="table">
-      <h1 class="table__title">Demonstração de dispensa.</h1>
+      <h1 class="table__title">Demonstração de dispensa</h1>
       <div class="table__container">
         <div class="table__container__header">
           <div class="table__container__header__month">
@@ -32,7 +32,11 @@
             >
               <ul v-for="(item, i) in descriptionData" :key="i">
                 <li class="table__container__header__list__listValue__text">
-                  {{ item.value }}
+                  {{
+                    i === 3 || i === 6 || i === 7
+                      ? formatLt(item.value)
+                      : formatKg(item.value)
+                  }}
                 </li>
               </ul>
             </div>
@@ -75,17 +79,13 @@ export default {
       "Dezembro",
     ],
   }),
-  computed: {
-    header() {
-      return this.$store.state.table.header;
-    },
-    params() {
-      return this.$store.state.table.params;
-    },
-  },
+  computed: {},
   methods: {
-    getCheckbox(item) {
-      console.log(item, "item");
+    formatKg(item) {
+      return `${item} Kg`;
+    },
+    formatLt(item) {
+      return `${item} L`;
     },
   },
 };
@@ -107,7 +107,7 @@ export default {
       display: flex;
       justify-content: space-between;
       &__month {
-        margin-top: 20px;
+        margin-top: 42px;
         margin-right: 20px;
         &__listMonth {
           &__text {
@@ -122,9 +122,9 @@ export default {
       }
       &__list {
         width: 100%;
-
         &__listHeader {
           width: 100%;
+          padding-bottom: 20px;
           display: flex;
           justify-content: space-between;
           &__description {
@@ -137,7 +137,7 @@ export default {
           }
         }
         &__listValue {
-          border-bottom: 1px solid #454d6b;
+          border-bottom: 1px solid #454d6b9a;
           width: 100%;
           display: flex;
           justify-content: space-between;
@@ -146,12 +146,13 @@ export default {
             width: 85px;
             height: 28.5px;
             list-style-type: none;
-            font-family: sans-serif;
-            color: #454d6b;
-            font-weight: bold;
+            font-family: sans-serif, "Open Sans";
+            color: #777777;
+            font-weight: 400;
             display: flex;
             align-items: center;
             font-size: 15px;
+            font-style: normal;
           }
         }
       }

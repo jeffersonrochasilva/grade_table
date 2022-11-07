@@ -17,7 +17,10 @@
 <script>
 export default {
   data: () => ({
-    items: [{ icon: "mdi-table", name: "Tabela", direction: "table" }],
+    items: [
+      { icon: "mdi-table", name: "table Alunos", direction: "table" },
+      { icon: "mdi-food-apple", name: "Dispensa", direction: "dispensa" },
+    ],
   }),
   computed: {},
 };
@@ -25,9 +28,12 @@ export default {
 
 <style lang="scss" scope>
 .card {
+  display: flex;
+  flex-wrap: wrap;
   &__container {
     width: 220px;
     height: 220px;
+    margin: 20px 33px;
     display: flex;
     flex-direction: column;
     align-items: center;
