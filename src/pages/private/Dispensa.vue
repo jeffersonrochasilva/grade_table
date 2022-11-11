@@ -55,6 +55,28 @@
         </v-carousel-item>
       </v-carousel>
     </template>
+    <template>
+      <v-carousel v-model="model">
+        <v-carousel-item v-for="(color, i) in colors" :key="color">
+          <v-sheet :color="color" height="100%" tile>
+            <v-row class="fill-height" align="center" justify="center">
+              <div class="text-h2">Slide {{ i + 1 }}</div>
+            </v-row>
+          </v-sheet>
+        </v-carousel-item>
+      </v-carousel>
+    </template>
+    <template>
+      <v-carousel v-model="model">
+        <v-carousel-item v-for="(color, i) in colors" :key="color">
+          <v-sheet :color="color" height="100%" tile>
+            <v-row class="fill-height" align="center" justify="center">
+              <div class="text-h2">Slide {{ i + 1 }}</div>
+            </v-row>
+          </v-sheet>
+        </v-carousel-item>
+      </v-carousel>
+    </template>
   </div>
 </template>
 
@@ -84,6 +106,74 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.table {
+  width: 1700px;
+  overflow-x: scroll;
+  padding: 15px 0 10px;
+  &__title {
+    color: #454d6b;
+    font-family: sans-serif;
+    font-size: 24px;
+    padding: 50px 15px;
+  }
+  &__container {
+    &__header {
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      &__month {
+        margin-top: 42px;
+        margin-right: 20px;
+        &__listMonth {
+          &__text {
+            height: 30px;
+            list-style: none;
+            font-family: sans-serif;
+            color: #454d6b;
+            font-weight: bold;
+            font-size: 15px;
+          }
+        }
+      }
+      &__list {
+        width: 100%;
+        &__listHeader {
+          width: 100%;
+          padding-bottom: 20px;
+          display: flex;
+          justify-content: space-between;
+          &__description {
+            width: 85px;
+            list-style-type: none;
+            font-family: sans-serif;
+            color: #454d6b;
+            font-weight: bold;
+            font-size: 15px;
+          }
+        }
+        &__listValue {
+          border-bottom: 1px solid #454d6b9a;
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          &__text {
+            width: 85px;
+            height: 28.5px;
+            list-style-type: none;
+            font-family: sans-serif, "Open Sans";
+            color: #777777;
+            font-weight: 400;
+            display: flex;
+            align-items: center;
+            font-size: 15px;
+            font-style: normal;
+          }
+        }
+      }
+    }
+  }
+}
 .table {
   width: 1700px;
   overflow-x: scroll;
