@@ -6,6 +6,7 @@ import Port from "@/pages/private/Registers/Port.vue";
 import Janitor from "@/pages/private/Registers/Janitor.vue";
 import RegisterBag from "@/pages/private/Registers/bags/RegisterBag.vue";
 import Dispensa from "@/pages/private/Dispensa.vue";
+import Slider from "@/pages/private/Slider.vue";
 
 const routes = [
   {
@@ -24,6 +25,7 @@ const routes = [
         component: RegisterBag,
       },
       { path: "/home/dispensa", name: "dispensa", component: Dispensa },
+      { path: "/home/slider", name: "slider", component: Slider },
     ],
   },
 ];

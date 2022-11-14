@@ -57,9 +57,9 @@ export default {
               routerName: "table",
             },
             {
-              name: "Graficos",
+              name: "slider",
               otherIcon: "mdi-chart-line-stacked",
-              routerName: "",
+              routerName: "slider",
             },
             {
               name: "Graficos",
