@@ -62,9 +62,9 @@ export default {
               routerName: "slider",
             },
             {
-              name: "Graficos",
-              otherIcon: "mdi-chart-line-stacked",
-              routerName: "",
+              name: "Fale conosco",
+              otherIcon: "mdi-card-account-phone",
+              routerName: "contact-us",
             },
           ],
           otherIcon: "mdi-chart-line-stacked",
