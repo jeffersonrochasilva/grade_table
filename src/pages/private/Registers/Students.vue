@@ -1,69 +1,98 @@
 <template>
-  <v-card class="students">
-    <span class="students__title">Cadastro de Alunos</span>
-    <div class="students__form">
-      <div class="students__form__campAlert">
-        <input
-          class="students__form__campAlert__camp"
-          type="text"
-          v-model="name"
-          placeholder="Nome"
-        />
-        <p v-if="campName">O maximo de caracteries são 20</p>
+  <div>
+    <v-card class="students">
+      <span class="students__title">Cadastro de Alunos</span>
+      <div class="students__form">
+        <div class="students__form__campAlert">
+          <input
+            class="students__form__campAlert__camp"
+            type="text"
+            v-model="name"
+            placeholder="Nome"
+          />
+          <p v-if="campName">O maximo de caracteries são 20</p>
+        </div>
+        <div class="students__form__campAlert">
+          <input
+            class="students__form__campAlert__camp"
+            type="text"
+            v-model="lastName"
+            placeholder="Digite seu sobrenome"
+          />
+          <p v-if="campAge">Valor invalido</p>
+        </div>
+        <div class="students__form__campAlert">
+          <input
+            class="students__form__campAlert__camp"
+            type="text"
+            v-model="email"
+            placeholder="email"
+          />
+          <p v-if="campLastName">O maximo de caracteries são 32</p>
+        </div>
+        <div class="students__form__campAlert">
+          <input
+            class="students__form__campAlert__camp"
+            type="Number"
+            v-model="cpf"
+            placeholder="cpf"
+          />
+          <p v-if="campCpf">O maximo de caracteries são 11</p>
+        </div>
       </div>
-      <div class="students__form__campAlert">
-        <input
-          class="students__form__campAlert__camp"
-          type="text"
-          v-model="lastName"
-          placeholder="sobrenome"
-        />
-        <p v-if="campLastName">O maximo de caracteries são 32</p>
+      <div class="students__button">
+        <v-btn
+          :disabled="disabledButton(name, email, cpf, lastName)"
+          @click="regeisterStudents()"
+          class="students__button__btn"
+          >Cadastrar</v-btn
+        >
       </div>
-      <div class="students__form__campAlert">
-        <input
-          class="students__form__campAlert__camp"
-          type="Number"
-          v-model="cpf"
-          placeholder="cpf"
+    </v-card>
+    <v-card class="component">
+      <div class="component__students">
+        <TableStudents
+          @editUser="studentsComponent = $event"
+          :students="students"
         />
-        <p v-if="campCpf">O maximo de caracteries são 11</p>
       </div>
-      <div class="students__form__campAlert">
-        <input
-          class="students__form__campAlert__camp"
-          type="number"
-          v-model="age"
-          placeholder="Idade"
-        />
-        <p v-if="campAge">Valor invalido</p>
-      </div>
-    </div>
-    <div class="students__button">
-      <v-btn
-        :disabled="disabledButton(name, lastName, cpf, age)"
-        @click="regeisterStudents()"
-        class="students__button__btn"
-        >Cadastrar</v-btn
-      >
-    </div>
-  </v-card>
+    </v-card>
+  </div>
 </template>
 
 <script>
+import TableStudents from "@/components/TableStudents/index.vue";
 import { mapActions } from "vuex";
+import { request } from "../../../utils/request";
 export default {
+  components: {
+    TableStudents,
+  },
   data: () => ({
     name: "",
-    lastName: "",
+    email: "",
     age: "",
     cpf: "",
+    lastName: "",
     campName: false,
     campLastName: false,
     campCpf: false,
     campAge: false,
+    students: [],
+    studentsComponent: {},
   }),
+  mounted() {
+    this.getDataStudents();
+  },
   watch: {
+    studentsComponent() {
+      if (this.studentsComponent.id) {
+        this.name = this.studentsComponent.nome;
+        this.email = this.studentsComponent.email;
+      } else {
+        this.getDataStudents();
+      }
+    },
     name() {
       if (this.name.length > 20) {
         this.campName = true;
@@ -77,32 +106,53 @@ export default {
       }
     },
   },
+
   methods: {
     ...mapActions({
       registerStudentss: "registerStudentss",
       setStepss: "setStepss",
     }),
-    disabledButton(name, lastName, cpf, age) {
-      if (name.length > 0 && lastName.length > 0 && cpf > 0 && age > 0) {
+    async getDataStudents() {
+      await this.$http
+        .get("usuarios.json")
+        .then((response) => {
+          this.students = response.data;
+          console.log("sucesso");
+        })
+        .catch((e) => console.log(e));
+    },
+    disabledButton(name, email) {
+      if (name.length > 0 && email.length > 0) {
         return false;
       } else {
         return true;
       }
     },
+    clear() {
+      this.name = "";
+      this.lastName = "";
+      this.cpf = 0;
+      this.age = 0;
+    },
     async regeisterStudents() {
       await this.setStepss(true);
-
-      await this.registerStudentss({
-        name: this.name,
-        lastName: this.lastName,
-        age: this.age,
-        cpf: this.cpf,
-      });
-      setTimeout(async () => {
-        await this.setStepss(false);
-      }, 3000);
-
-      (this.name = ""), (this.lastName = ""), (this.cpf = 0), (this.age = 0);
+      const lastURL = this.studentsComponent.id
+        ? `/${this.studentsComponent.id}.json`
+        : ".json";
+      const methods = this.studentsComponent.id ? "patch" : "post";
+      await this.$http[methods](`usuarios${lastURL}`, {
+        nome: this.name,
+        email: this.email,
+      })
+        .then((res) => {
+          console.log(res);
+          this.clear();
+          this.getDataStudents();
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+      await this.setStepss(false);
     },
   },
 };
@@ -111,6 +161,7 @@ export default {
 <style lang="scss" scoped>
 .students {
   padding: 20px;
+  margin-bottom: 30px;
   &__title {
     color: #454d6b;
     font-family: sans-serif;
@@ -144,10 +195,15 @@ export default {
     &__btn {
       width: 250px;
       height: 50px !important;
-      background: hsla(0, 90%, 60%, 0.603) !important;
-      color: #c0c0c0 !important;
+      background: #1ca11c !important;
+      color: #fff !important;
       font-family: sans-serif;
     }
+  }
+}
+.component {
+  &__students {
+    padding: 25px;
   }
 }
 </style>

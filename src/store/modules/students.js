@@ -10,9 +10,8 @@ export default {
   },
   actions: {
     registerStudentss({ commit }, psyload) {
-      setTimeout(() => {
-        commit("registerStudents", psyload);
-      }, 2000);
+      teste();
+      // commit("registerStudents", psyload);
     },
   },
 };

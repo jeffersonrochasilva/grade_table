@@ -1,42 +1,34 @@
-import axios from 'axios'
-import { URLS } from './enum'
-import { getStorage } from './storage'
+import axios from "axios";
+import Vue from "vue";
+import { URLS } from "./enum";
 
-const { stringify, parse } = JSON
+Vue.use({
+  install(Vue) {
+    // Vue.prototype.$http = axios;
+    Vue.prototype.$http = axios.create({
+      baseURL: "https://curso-vue-564e7-default-rtdb.firebaseio.com/",
+    });
 
-export const parseNetworkError = (error) => parse(stringify(error))
+    //interceptando request
+    Vue.prototype.$http.interceptors.request.use((config) => {
+      console.log(config.method);
+      // if (config.method === "post") {
+      //   config.method = "put";
+      // }
+      return config;
+    });
 
-export const withBaseURLContext = () =>
-	process.env.NODE_ENV
-		? URLS[process.env.NODE_ENV.toUpperCase()]
-		: URLS.DEVELOPMENT
-
-const storageValues = {
-	UsuarioId:
-		process.env.NODE_ENV === 'production' ? getStorage('usuarioId') : 1,
-	GrupoUsuarioId:
-		process.env.NODE_ENV === 'production' ? getStorage('GrupoUsuarioId') : 1,
-	EmpresaId:
-		process.env.NODE_ENV === 'production' ? getStorage('EmpresaId') : 1,
-}
-
-const request = axios.create({
-	baseURL: withBaseURLContext(),
-	headers: {
-		...storageValues,
-	},
-})
-
-request.interceptors.request.use(
-	(config) => {
-		const token = getStorage('token')
-		if (token) {
-			config.headers.common.Authorization = `Bearer ${token}`
-		}
-
-		return config
-	},
-	(response) => Promise.reject(response)
-)
-
-export { request }
+    //interceptando resposta
+    Vue.prototype.$http.interceptors.response.use((response) => {
+      const array = [];
+      for (let chave in response.data) {
+        array.push({
+          id: chave,
+          ...response.data[chave],
+        });
+      }
+      response.data = array;
+      return response;
+    });
+  },
+});
