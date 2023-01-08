@@ -23,25 +23,25 @@
       <div class="students__form__campAlert">
         <input
           class="students__form__campAlert__camp"
-          type="Number"
+          type="text"
+          v-model="email"
+          placeholder="Digite seu email"
+        />
+        <p v-if="campAge">Valor invalido</p>
+      </div>
+      <div class="students__form__campAlert">
+        <input
+          class="students__form__campAlert__camp"
+          type="text"
           v-model="cpf"
           placeholder="cpf"
         />
         <p v-if="campCpf">O maximo de caracteries são 11</p>
       </div>
-      <div class="students__form__campAlert">
-        <input
-          class="students__form__campAlert__camp"
-          type="number"
-          v-model="age"
-          placeholder="Idade"
-        />
-        <p v-if="campAge">Valor invalido</p>
-      </div>
     </div>
     <div class="students__button">
       <v-btn
-        :disabled="disabledButton(name, lastName, cpf, age)"
+        :disabled="disabledButton(name, lastName, cpf, email)"
         @click="regeisterStudents()"
         class="students__button__btn"
         >Cadastrar</v-btn
@@ -62,6 +62,7 @@ export default {
     campLastName: false,
     campCpf: false,
     campAge: false,
+    email: "",
   }),
   watch: {
     name() {
@@ -82,8 +83,13 @@ export default {
       registerStudentss: "registerStudentss",
       setStepss: "setStepss",
     }),
-    disabledButton(name, lastName, cpf, age) {
-      if (name.length > 0 && lastName.length > 0 && cpf > 0 && age > 0) {
+    disabledButton(name, lastName, cpf, email) {
+      if (
+        name.length > 0 &&
+        lastName.length > 0 &&
+        cpf > 0 &&
+        email.length > 0
+      ) {
         return false;
       } else {
         return true;
@@ -92,17 +98,26 @@ export default {
     async regeisterStudents() {
       await this.setStepss(true);
 
-      await this.registerStudentss({
-        name: this.name,
-        lastName: this.lastName,
-        age: this.age,
-        cpf: this.cpf,
-      });
-      setTimeout(async () => {
-        await this.setStepss(false);
-      }, 3000);
-
-      (this.name = ""), (this.lastName = ""), (this.cpf = 0), (this.age = 0);
+      await this.$http
+        .post("faxineiros.json", {
+          name: this.name,
+          lastName: this.lastName,
+          age: this.age,
+          cpf: this.cpf,
+        })
+        .then(() => {
+          this.setStepss(false);
+          this.clear();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    clear() {
+      this.name = "";
+      this.lastName = "";
+      this.cpf = "";
+      this.email = "";
     },
   },
 };

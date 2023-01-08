@@ -103,7 +103,8 @@ export default {
 .login {
   width: 100%;
   height: 100%;
-  background: #454d6b;
+  // background: #454d6b;
+  background: #fff;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -111,8 +112,9 @@ export default {
 
   &__content {
     width: 450px;
-    height: 500px;
-    background: #353b50;
+    height: 400px;
+    // background: #353b50;
+    background: rgb(211, 209, 209);
     border-radius: 4px;
     padding: 40px;
     display: flex;
@@ -121,11 +123,11 @@ export default {
     &__title {
       width: 28%;
       font-size: 42px;
-      margin-top: 35px;
-      margin-bottom: 35px;
+      margin-top: 25px;
+      margin-bottom: 25px;
       font-family: sans-serif;
-      color: #c0c0c0;
-      border-bottom: 1px solid #c0c0c0;
+      color: #000;
+      // border-bottom: 1px solid #c0c0c0;
     }
     &__alert {
       font-family: sans-serif;
@@ -161,14 +163,14 @@ export default {
     &__btn {
       width: 100%;
       height: 54px !important;
-      background: hsla(0, 90%, 60%, 0.603);
+      background: #1ca11c !important;
       color: #c0c0c0;
       font-family: sans-serif;
     }
     &__password {
       text-align: center;
-      color: #c0c0c0;
-      // font-family: sans-serif;
+      color: #000;
+      font-family: sans-serif;
       cursor: pointer;
     }
   }
