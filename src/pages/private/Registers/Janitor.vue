@@ -1,57 +1,63 @@
 <template>
-  <v-card class="students">
-    <span class="students__title">Cadastro de Faxineiro</span>
-    <div class="students__form">
-      <div class="students__form__campAlert">
-        <input
-          class="students__form__campAlert__camp"
-          type="text"
-          v-model="name"
-          placeholder="Nome"
-        />
-        <p v-if="campName">O maximo de caracteries são 20</p>
+  <div>
+    <v-card class="students">
+      <span class="students__title">Cadastro de Faxineiro</span>
+      <div class="students__form">
+        <div class="students__form__campAlert">
+          <input
+            class="students__form__campAlert__camp"
+            type="text"
+            v-model="name"
+            placeholder="Nome"
+          />
+          <p v-if="campName">O maximo de caracteries são 20</p>
+        </div>
+        <div class="students__form__campAlert">
+          <input
+            class="students__form__campAlert__camp"
+            type="text"
+            v-model="lastName"
+            placeholder="sobrenome"
+          />
+          <p v-if="campLastName">O maximo de caracteries são 32</p>
+        </div>
+        <div class="students__form__campAlert">
+          <input
+            class="students__form__campAlert__camp"
+            type="text"
+            v-model="age"
+            placeholder="Digite sua idade"
+          />
+          <p v-if="campAge">Valor invalido</p>
+        </div>
+        <div class="students__form__campAlert">
+          <input
+            class="students__form__campAlert__camp"
+            type="text"
+            v-model="cpf"
+            placeholder="cpf"
+          />
+          <p v-if="campCpf">O maximo de caracteries são 11</p>
+        </div>
       </div>
-      <div class="students__form__campAlert">
-        <input
-          class="students__form__campAlert__camp"
-          type="text"
-          v-model="lastName"
-          placeholder="sobrenome"
-        />
-        <p v-if="campLastName">O maximo de caracteries são 32</p>
+      <div class="students__button">
+        <v-btn
+          :disabled="disabledButton(name, lastName, cpf)"
+          @click="regeisterStudents()"
+          class="students__button__btn"
+          >Cadastrar</v-btn
+        >
       </div>
-      <div class="students__form__campAlert">
-        <input
-          class="students__form__campAlert__camp"
-          type="text"
-          v-model="email"
-          placeholder="Digite seu email"
-        />
-        <p v-if="campAge">Valor invalido</p>
-      </div>
-      <div class="students__form__campAlert">
-        <input
-          class="students__form__campAlert__camp"
-          type="text"
-          v-model="cpf"
-          placeholder="cpf"
-        />
-        <p v-if="campCpf">O maximo de caracteries são 11</p>
-      </div>
-    </div>
-    <div class="students__button">
-      <v-btn
-        :disabled="disabledButton(name, lastName, cpf, email)"
-        @click="regeisterStudents()"
-        class="students__button__btn"
-        >Cadastrar</v-btn
-      >
-    </div>
-  </v-card>
+    </v-card>
+    <v-card class="table">
+      <TabelaFaxineiro :faxineiros="faxineiros" @editUser="chackbox = $event" />
+    </v-card>
+  </div>
 </template>
 
 <script>
 import { mapActions } from "vuex";
+import TabelaFaxineiro from "@/components/TabelaFaxineiro/index.vue";
 export default {
   data: () => ({
     name: "",
@@ -63,8 +69,26 @@ export default {
     campCpf: false,
     campAge: false,
     email: "",
+    faxineiros: [],
+    chackbox: null,
+    id: "",
   }),
+  components: {
+    TabelaFaxineiro,
+  },
+  mounted() {
+    this.getFaxineiros();
+  },
   watch: {
+    chackbox() {
+      if (this.chackbox) {
+        this.name = this.chackbox.name;
+        this.cpf = this.chackbox.cpf;
+        this.lastName = this.chackbox.lastName;
+        this.age = this.chackbox.age;
+        this.id = this.chackbox.id;
+      }
+    },
     name() {
       if (this.name.length > 20) {
         this.campName = true;
@@ -83,13 +107,20 @@ export default {
       registerStudentss: "registerStudentss",
       setStepss: "setStepss",
     }),
-    disabledButton(name, lastName, cpf, email) {
-      if (
-        name.length > 0 &&
-        lastName.length > 0 &&
-        cpf > 0 &&
-        email.length > 0
-      ) {
+
+    getFaxineiros() {
+      this.$http
+        .get("faxineiros.json")
+        .then((resposta) => {
+          console.log(resposta.data);
+          this.faxineiros = resposta.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    disabledButton(name, lastName, cpf, age) {
+      if (name.length > 0 && lastName.length > 0 && cpf.length > 0) {
         return false;
       } else {
         return true;
@@ -97,17 +128,18 @@ export default {
     },
     async regeisterStudents() {
       await this.setStepss(true);
-
-      await this.$http
-        .post("faxineiros.json", {
-          name: this.name,
-          lastName: this.lastName,
-          age: this.age,
-          cpf: this.cpf,
-        })
+      const methods = this.id ? "patch" : "post";
+      const lastJson = this.id ? `/${this.id}.json` : ".json";
+      await this.$http[methods](`faxineiros${lastJson}`, {
+        name: this.name,
+        lastName: this.lastName,
+        age: this.age,
+        cpf: this.cpf,
+      })
         .then(() => {
           this.setStepss(false);
           this.clear();
+          this.getFaxineiros();
         })
         .catch((error) => {
           console.log(error);
@@ -117,7 +149,7 @@ export default {
       this.name = "";
       this.lastName = "";
       this.cpf = "";
-      this.email = "";
+      this.age = "";
     },
   },
 };
@@ -164,5 +196,9 @@ export default {
       font-family: sans-serif;
     }
   }
+}
+.table {
+  margin-top: 25px;
+  padding: 15px;
 }
 </style>
