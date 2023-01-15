@@ -62,6 +62,36 @@
       <div class="table__content__button">
         <v-btn class="btn" @click="deleteItemList(item.id)">excluir</v-btn>
       </div>
+      <div class="table__content__box">
+        <v-icon class="table__content__box__icon">mdi-clipboard-account</v-icon>
+      </div>
+      <div class="table__content__button">
+        <v-btn class="btn" @click="deleteItemList(item.id)">excluir</v-btn>
+      </div>
+      <div class="table__content__box">
+        <v-icon class="table__content__box__icon">mdi-clipboard-account</v-icon>
+      </div>
+      <div class="table__content__button">
+        <v-btn class="btn" @click="deleteItemList(item.id)">excluir</v-btn>
+      </div>
+      <div class="table__content__box">
+        <v-icon class="table__content__box__icon">mdi-clipboard-account</v-icon>
+      </div>
+      <div class="table__content__button">
+        <v-btn class="btn" @click="deleteItemList(item.id)">excluir</v-btn>
+      </div>
+      <div class="table__content__box">
+        <v-icon class="table__content__box__icon">mdi-clipboard-account</v-icon>
+      </div>
+      <div class="table__content__button">
+        <v-btn class="btn" @click="deleteItemList(item.id)">excluir</v-btn>
+      </div>
+      <div class="table__content__box">
+        <v-icon class="table__content__box__icon">mdi-clipboard-account</v-icon>
+      </div>
+      <div class="table__content__button">
+        <v-btn class="btn" @click="deleteItemList(item.id)">excluir</v-btn>
+      </div>
     </div>
   </div>
 </template>
